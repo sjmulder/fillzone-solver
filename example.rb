@@ -24,7 +24,6 @@ example_data.each_with_index do |color, i|
 	board.set_color_at(i % 5, i / 5, color)
 end
 
-solver = FillzoneSolver.new(board)
-solver.step
-solver.solve
-solver.print
+reach_solver = ReachFillzoneSolver.new(board)
+reach_solver.solve
+reach_solver.print

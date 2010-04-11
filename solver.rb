@@ -122,7 +122,7 @@ class FillzoneBoard
 	end
 end
 
-class FillzoneSolver
+class ReachFillzoneSolver
 	attr_reader :boards
 	attr_reader :step_colors
 	
