@@ -9,6 +9,8 @@
 # work for any purpose, without any conditions, unless such conditions are
 # required by law.
 
+require 'board'
+
 class SolverTargetView < NSView
 	NUM_ROWS = 14
 	NUM_COLS = 14
@@ -16,6 +18,26 @@ class SolverTargetView < NSView
 	BLOCK_HEIGHT = 22
 	START_X = 12
 	START_Y = 12
+	LOOK_OFFSET_X = 5
+	LOOK_OFFSET_Y = 18
+	
+	BOARD_WIDTH = BLOCK_WIDTH * NUM_COLS
+	BOARD_HEIGHT = BLOCK_HEIGHT * NUM_ROWS
+	BOARD_TOP = START_X
+	BOARD_LEFT = START_Y
+	BOARD_BOTTOM = START_Y + BOARD_HEIGHT
+	BOARD_RIGHT = START_X + BOARD_WIDTH
+	
+	COLORS = [
+		[:purple, NSColor.magentaColor],
+		[:white, NSColor.colorWithCalibratedRed(1, green: 1, blue: 1, alpha: 1)],
+		[:red, NSColor.redColor],
+		[:green, NSColor.greenColor],
+		[:blue, NSColor.blueColor],
+		[:yellow, NSColor.yellowColor]
+	]
+	
+	ColorDistance = Struct.new(:color_name, :distance)
 	
 	def drawRect(rect)		
 		context = NSGraphicsContext.currentContext
@@ -28,51 +50,73 @@ class SolverTargetView < NSView
 		path.fill
 	
 		context.restoreGraphicsState
-		context.saveGraphicsState
-	
-		lineCorrectTransform = NSAffineTransform.new
-		lineCorrectTransform.translateXBy(-0.5, yBy: -0.5)
-		lineCorrectTransform.concat
-	
-		width = BLOCK_WIDTH * NUM_COLS
-		height = BLOCK_HEIGHT * NUM_ROWS
-		top = START_X
-		left = START_Y
-		bottom = START_Y + height
-		right = START_X + width
-	
-		grid = NSBezierPath.new;
-		grid.moveToPoint(NSMakePoint(left, top))
-		grid.lineToPoint(NSMakePoint(right, top))
-		grid.moveToPoint(NSMakePoint(left, top))
-		grid.lineToPoint(NSMakePoint(left, bottom))
+
+		unless @board.nil?
+			@board.for_all_tiles do |row, col, color|
+				next if color.nil?
+				x = BOARD_LEFT + col * BLOCK_WIDTH
+				y = BOARD_TOP + row * BLOCK_HEIGHT
+
+				colors = COLORS.find { |c| c[0] == color }
+				colors[1].colorWithAlphaComponent(0.75).set
+
+				path = NSBezierPath.new
+				path.moveToPoint(NSMakePoint(x + BLOCK_WIDTH, y))
+				path.lineToPoint(NSMakePoint(x + BLOCK_WIDTH, y + BLOCK_WIDTH))
+				path.lineToPoint(NSMakePoint(x, y + BLOCK_WIDTH))
+				path.fill
+			end
+		end
+	end
+
+	def captureBoardBitmap
+		rect = CGRectMake(BOARD_LEFT, BOARD_TOP, BOARD_WIDTH, BOARD_HEIGHT)
+		rect = convertRectToBase(rect)
+		rect.origin = window.convertBaseToScreen(rect.origin)
+		rect.origin.y = window.screen.frame.size.height - rect.origin.y - rect.size.height
+		puts "(#{rect.origin.x}, #{rect.origin.y}, #{rect.size.width}, #{rect.size.height})"
+
+		cgImage = CGWindowListCreateImage(
+			rect,
+			KCGWindowListOptionOnScreenBelowWindow, 
+			window.windowNumber, 
+			KCGWindowImageDefault
+		)
 		
-		NUM_ROWS.times do |row|
-			y = top + (row + 1) * BLOCK_HEIGHT
-			grid.moveToPoint(NSMakePoint(left, y))
-			grid.lineToPoint(NSMakePoint(right, y))
+		bitmapRep = NSBitmapImageRep.alloc.initWithCGImage(cgImage)
+		CGImageRelease(cgImage)
+		
+		bitmapRep
+	end
+	
+	def closestColorName(color)
+		distances = COLORS.map do |colors|
+			distance =
+				(colors[1].redComponent - color.redComponent).abs +
+				(colors[1].greenComponent - color.greenComponent).abs +
+				(colors[1].blueComponent - color.blueComponent).abs
+			ColorDistance.new(
+				colors[0],
+				distance
+			)
 		end
+		closest = distances.min { |a, b| a.distance <=> b.distance }
+		closest.color_name
+	end
+	
+	def captureBoard
+		bitmap = captureBoardBitmap
 
-		NUM_COLS.times do |col|
-			x = left + (col + 1) * BLOCK_WIDTH
-			grid.moveToPoint(NSMakePoint(x, top))
-			grid.lineToPoint(NSMakePoint(x, bottom))
+		@board = FillzoneBoard.new(NUM_COLS, NUM_ROWS)
+		@board.for_all_tiles do |row, col|
+			x = col * BLOCK_WIDTH + LOOK_OFFSET_X
+			y = row * BLOCK_HEIGHT + LOOK_OFFSET_Y
+			color = bitmap.colorAtX(x, y: y)
+			color_name = closestColorName(color)		
+			@board.set_color_at(col, row, color_name)
 		end
-	
-		lineInsetTransform = NSAffineTransform.new
-		lineInsetTransform.translateXBy(-1, yBy: -1)
-		lineInsetTransform.concat
-	
-		NSColor.colorWithDeviceWhite(0, alpha: 0.3).set
-		grid.stroke
-
-		lineInsetTransform.invert
-		lineInsetTransform.concat
-
-		NSColor.colorWithDeviceWhite(1, alpha: 0.3).set
-		grid.stroke
-	
-		context.restoreGraphicsState
+		
+		setNeedsDisplay(true)
 	end
 
 	def isFlipped
