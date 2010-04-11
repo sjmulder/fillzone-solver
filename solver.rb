@@ -9,8 +9,6 @@
 # work for any purpose, without any conditions, unless such conditions are
 # required by law.
 
-require 'yaml'
-
 class FillzoneBoard
 	attr_reader :width
 	attr_reader :height
@@ -183,21 +181,3 @@ class FillzoneSolver
 		puts step_colors.join(", ")
 	end
 end
-
-example_data = [
-	:pink,   :pink,  :blue,   :white,  :yellow,
-	:blue,   :white, :pink,   :yellow, :white,
-	:pink,   :blue,  :pink,   :green,  :white,
-	:blue,   :red,   :pink,   :white,  :green,
-	:yellow, :pink,  :yellow, :yellow, :green
-]
-
-board = FillzoneBoard.new(5, 5)
-example_data.each_with_index do |color, i|
-	board.set_color_at(i % 5, i / 5, color)
-end
-
-solver = FillzoneSolver.new(board)
-solver.step
-solver.solve
-solver.print
