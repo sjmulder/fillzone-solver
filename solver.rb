@@ -175,6 +175,7 @@ class FillzoneSolver
 	
 	def solve
 		step until board.finished?
+		step_colors
 	end
 	
 	def print
