@@ -149,6 +149,11 @@ class FillzoneSolver
 		
 		reach_counts
 	end
+	
+	def highest_reach_color
+		max = color_reaches.max { |a, b| a[1] <=> b[1] }
+		max[0]
+	end
 end
 
 example_data = [
@@ -165,4 +170,4 @@ example_data.each_with_index do |color, i|
 end
 
 solver = FillzoneSolver.new(board)
-puts solver.color_reaches.to_yaml
+puts solver.highest_reach_color
