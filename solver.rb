@@ -49,6 +49,13 @@ class FillzoneBoard
 		end
 	end
 	
+	def tile_exists?(x, y)
+		x >= 0 &&
+		y >= 0 &&
+		x < @width &&
+		y < @height
+	end
+	
 	def print
 		for_rows do |y|
 			row = []
@@ -65,11 +72,8 @@ class FillzoneBoard
 		true
 	end
 	
-	def tile_exists?(x, y)
-		x >= 0 &&
-		y >= 0 &&
-		x < @width &&
-		y < @height
+	def unique_colors
+		@colors.values.uniq
 	end
 	
 	def island_and_neighbors_of(start_x, start_y)
@@ -116,6 +120,32 @@ class FillzoneSolver
 	def initialize(board)
 		@original_board = @board = board
 	end
+	
+	def color_reaches
+		island, neighbors = board.island_and_neighbors_of(0, 0)
+		reached_tiles = {}
+		
+		neighbors.each do |pos|
+			x, y = pos[0], pos[1]
+			tile_color = board.color_at(x, y)
+			
+			tile_island, tile_reach = board.island_and_neighbors_of(x, y)
+			tile_reach -= island
+			tile_reach -= neighbors
+			tile_reach += tile_island
+			
+			reached_tiles[tile_color] ||= []
+			reached_tiles[tile_color] += tile_reach
+			reached_tiles[tile_color].uniq!
+		end
+		
+		reach_counts = {}
+		reached_tiles.map do |color, tiles|
+			reach_counts[color] = tiles.length
+		end
+		
+		reach_counts
+	end
 end
 
 example_data = [
@@ -131,4 +161,5 @@ example_data.each_with_index do |color, i|
 	board.set_color_at(i % 5, i / 5, color)
 end
 
-puts board.island_and_neighbors_of(0, 0).to_yaml
+solver = FillzoneSolver.new(board)
+puts solver.color_reaches.to_yaml
