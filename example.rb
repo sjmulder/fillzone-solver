@@ -1,4 +1,4 @@
-# FillzoneSolver example
+# FillzoneSolver
 # A simple solver for the Fillzone game
 # Sijmen Mulder, April 2010
 #
@@ -9,7 +9,9 @@
 # work for any purpose, without any conditions, unless such conditions are
 # required by law.
 
-require 'solver.rb'
+require 'board'
+require 'solver_reach'
+require 'solver_breadth'
 
 example_data = [
 	:pink,   :pink,  :blue,   :white,  :yellow,
