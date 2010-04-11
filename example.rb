@@ -24,6 +24,12 @@ example_data.each_with_index do |color, i|
 	board.set_color_at(i % 5, i / 5, color)
 end
 
+puts "Reach solver:"
 reach_solver = ReachFillzoneSolver.new(board)
 reach_solver.solve
 reach_solver.print
+
+puts "Breadth solver:"
+breath_solver = BreadthSolver.new(board)
+breath_solver.solve
+breath_solver.print

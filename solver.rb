@@ -111,7 +111,7 @@ class FillzoneBoard
 	end
 	
 	def swap_island_at(x, y, new_color)
-		new_board = FillzoneBoard.new(@width, @height, @colors)
+		new_board = FillzoneBoard.new(@width, @height, @colors.dup)
 		island_tiles, _ = island_and_neighbors_of(x, y)
 
 		island_tiles.each do |pos|
@@ -176,6 +176,50 @@ class ReachFillzoneSolver
 	def solve
 		step until board.finished?
 		step_colors
+	end
+	
+	def print
+		puts step_colors.join(", ")
+	end
+end
+
+require 'yaml'
+
+class BreadthSolver
+	Path = Struct.new(:steps, :board)
+	
+	attr_reader :initial_board
+	attr_reader :step_colors
+	
+	def initialize(board)
+		@initial_board = board
+		@step_colors = []
+	end
+	
+	def solve
+		return if initial_board.finished?
+		
+		paths = [Path.new([], initial_board)]
+		solution = nil
+		
+		while solution.nil? do
+			paths.map! do |path|
+				_, neighbors = path.board.island_and_neighbors_of(0, 0)
+				colors = neighbors.map { |pos| path.board.color_at(pos[0], pos[1]) }
+				colors.uniq!
+				colors.map do |color| 
+					Path.new(
+						path.steps.dup << color,
+						path.board.swap_island_at(0, 0, color)
+					)
+				end
+			end
+			paths.flatten!
+			puts " search depth: #{paths[0].steps.length}"
+			solution = paths.find { |path| path.board.finished? }
+		end
+		
+		@step_colors = solution.steps
 	end
 	
 	def print
