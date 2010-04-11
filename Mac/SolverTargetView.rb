@@ -39,6 +39,13 @@ class SolverTargetView < NSView
 	
 	ColorDistance = Struct.new(:color_name, :distance)
 	
+	attr_reader :board
+	attr_reader :liveMode
+	
+	def awakeFromNib
+		@liveMode = true
+	end
+	
 	def drawRect(rect)		
 		context = NSGraphicsContext.currentContext
 		context.saveGraphicsState
@@ -60,10 +67,22 @@ class SolverTargetView < NSView
 				colors = COLORS.find { |c| c[0] == color }
 				colors[1].colorWithAlphaComponent(0.75).set
 
+				right = x + BLOCK_WIDTH - 1
+				bottom = y + BLOCK_WIDTH - 1
+				
+				unless @liveMode
+					NSRectFillUsingOperation(
+						NSMakeRect(x, y, BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1),
+						context.compositingOperation
+					)
+				
+					colors[1].set
+				end
+				
 				path = NSBezierPath.new
-				path.moveToPoint(NSMakePoint(x + BLOCK_WIDTH, y))
-				path.lineToPoint(NSMakePoint(x + BLOCK_WIDTH, y + BLOCK_WIDTH))
-				path.lineToPoint(NSMakePoint(x, y + BLOCK_WIDTH))
+				path.moveToPoint(NSMakePoint(right, y))
+				path.lineToPoint(NSMakePoint(right, bottom))
+				path.lineToPoint(NSMakePoint(x, bottom))
 				path.fill
 			end
 		end
@@ -120,5 +139,16 @@ class SolverTargetView < NSView
 
 	def isFlipped
 		true
+	end
+	
+	def board=(value)
+		@board = value
+		setNeedsDisplay(true)
+	end
+	
+	def liveMode=(value)
+		@liveMode = value
+		captureBoard if @live_mode
+		setNeedsDisplay(true)
 	end
 end
