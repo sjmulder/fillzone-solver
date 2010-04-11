@@ -33,9 +33,9 @@ const int START_Y = 12;
 	[context restoreGraphicsState];
 	[context saveGraphicsState];
 	
-	NSAffineTransform *transform = [NSAffineTransform new];
-	[transform translateXBy:-0.5 yBy:-0.5];
-	[transform concat];
+	NSAffineTransform *lineCorrectTransform = [NSAffineTransform new];
+	[lineCorrectTransform translateXBy:-0.5 yBy:-0.5];
+	[lineCorrectTransform concat];
 	
 	CGFloat width = BLOCK_WIDTH * NUM_COLS;
 	CGFloat height = BLOCK_HEIGHT * NUM_ROWS;
@@ -64,8 +64,19 @@ const int START_Y = 12;
 		[grid lineToPoint:NSMakePoint(x, bottom)];
 	}
 	
-	[[NSColor colorWithDeviceWhite:1 alpha:0.5] set];
+	NSAffineTransform *lineInsetTransform = [NSAffineTransform new];
+	[lineInsetTransform translateXBy:-1 yBy:-1];
+	[lineInsetTransform concat];
+	
+	[[NSColor colorWithDeviceWhite:0 alpha:0.3] set];
 	[grid stroke];
+
+	[lineInsetTransform invert];
+	[lineInsetTransform concat];
+
+	[[NSColor colorWithDeviceWhite:1 alpha:0.3] set];
+	[grid stroke];
+
 	
 	[context restoreGraphicsState];
 }
