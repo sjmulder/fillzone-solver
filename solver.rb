@@ -15,10 +15,10 @@ class FillzoneBoard
 	attr_reader :width
 	attr_reader :height
 	
-	def initialize(width, height)
+	def initialize(width, height, colors = {})
 		@width = width
 		@height = height
-		@colors = {}
+		@colors = colors
 	end
 	
 	def color_at(x, y)
@@ -65,7 +65,7 @@ class FillzoneBoard
 	end
 	
 	def finished?
-		first_color = colors_at(0, 0)
+		first_color = color_at(0, 0)
 		for_all_tiles do |x, y, color|
 			return false if color != first_color
 		end
@@ -111,13 +111,26 @@ class FillzoneBoard
 		
 		return island, neighbors
 	end
+	
+	def swap_island_at(x, y, new_color)
+		new_board = FillzoneBoard.new(@width, @height, @colors)
+		island_tiles, _ = island_and_neighbors_of(x, y)
+
+		island_tiles.each do |pos|
+			new_board.set_color_at(pos[0], pos[1], new_color)
+		end
+		
+		new_board
+	end
 end
 
 class FillzoneSolver
 	attr_reader :boards
+	attr_reader :step_colors
 	
 	def initialize(board)
 		@boards = [board]
+		@step_colors = []
 	end
 
 	def board
@@ -154,6 +167,21 @@ class FillzoneSolver
 		max = color_reaches.max { |a, b| a[1] <=> b[1] }
 		max[0]
 	end
+	
+	def step
+		return if board.finished?
+		color = highest_reach_color
+		boards << board.swap_island_at(0, 0, color)
+		step_colors << color
+	end
+	
+	def solve
+		step until board.finished?
+	end
+	
+	def print
+		puts step_colors.join(", ")
+	end
 end
 
 example_data = [
@@ -170,4 +198,6 @@ example_data.each_with_index do |color, i|
 end
 
 solver = FillzoneSolver.new(board)
-puts solver.highest_reach_color
+solver.step
+solver.solve
+solver.print
