@@ -26,12 +26,36 @@ example_data.each_with_index do |color, i|
 	board.set_color_at(i % 5, i / 5, color)
 end
 
-puts "Reach solver:"
-reach_solver = ReachFillzoneSolver.new(board)
-reach_solver.solve
-reach_solver.print
+use_reach = true
+use_breadth = true
 
-puts "Breadth solver:"
-breath_solver = BreadthSolver.new(board)
-breath_solver.solve { |depth| puts " search depth: #{depth}" }
-breath_solver.print
+if ARGV.length > 0
+	use_reach = false
+	use_breadth = false
+	
+	ARGV.each do |argument|
+		case argument
+			when 'reach': use_reach = true
+			when 'breadth': use_breadth = true
+				
+			else
+				puts "Unknown solve method: #{argument}"
+				puts "Usage: ruby #{__FILE__} [reach] [breadth]"
+				exit
+		end
+	end
+end
+
+if use_reach
+	puts "Reach solver:"
+	reach_solver = ReachFillzoneSolver.new(board)
+	reach_solver.solve
+	reach_solver.print
+end
+
+if use_breadth
+	puts "Breadth solver:"
+	breath_solver = BreadthSolver.new(board)
+	breath_solver.solve { |depth| puts " search depth: #{depth}" }
+	breath_solver.print
+end
