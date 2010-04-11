@@ -20,8 +20,11 @@ class FillzoneSolverDelegate
 		window.setLevel(NSFloatingWindowLevel)
 	end
 	
+	def applicationDidFinishLaunching(notification)
+		overlayView.captureBoard
+	end
+
 	def windowDidMove(notification)
-		puts "Moved!"
 		overlayView.captureBoard
 	end
 end
