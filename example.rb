@@ -33,5 +33,5 @@ reach_solver.print
 
 puts "Breadth solver:"
 breath_solver = BreadthSolver.new(board)
-breath_solver.solve
+breath_solver.solve { |depth| puts " search depth: #{depth}" }
 breath_solver.print

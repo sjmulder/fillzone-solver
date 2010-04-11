@@ -30,6 +30,10 @@ class BreadthSolver
 		solution = nil
 		
 		while solution.nil? do
+			if block_given?
+				depth = paths[0].steps.length + 1
+				yield depth 
+			end
 			paths.map! do |path|
 				_, neighbors = path.board.island_and_neighbors_of(0, 0)
 				colors = neighbors.map { |pos| path.board.color_at(pos[0], pos[1]) }
@@ -42,7 +46,6 @@ class BreadthSolver
 				end
 			end
 			paths.flatten!
-			puts " search depth: #{paths[0].steps.length}"
 			solution = paths.find { |path| path.board.finished? }
 		end
 		
