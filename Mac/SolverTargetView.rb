@@ -74,8 +74,7 @@ class SolverTargetView < NSView
 		rect = convertRectToBase(rect)
 		rect.origin = window.convertBaseToScreen(rect.origin)
 		rect.origin.y = window.screen.frame.size.height - rect.origin.y - rect.size.height
-		puts "(#{rect.origin.x}, #{rect.origin.y}, #{rect.size.width}, #{rect.size.height})"
-
+		
 		cgImage = CGWindowListCreateImage(
 			rect,
 			KCGWindowListOptionOnScreenBelowWindow, 
