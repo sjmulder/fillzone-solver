@@ -114,11 +114,14 @@ class FillzoneBoard
 end
 
 class FillzoneSolver
-	attr_reader :original_board
-	attr_reader :board
+	attr_reader :boards
 	
 	def initialize(board)
-		@original_board = @board = board
+		@boards = [board]
+	end
+
+	def board
+		@boards.last
 	end
 	
 	def color_reaches
