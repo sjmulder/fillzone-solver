@@ -50,6 +50,14 @@ class FillzoneSolverDelegate
 		overlayView.board = @tableSource.boardAtRow(solutionTable.selectedRow)
 	end
 	
+	def validateMenuItem(item)
+		case item.title
+			when 'New' then !@liveMode
+			when 'Solve' then @liveMode
+			else true
+		end
+	end
+	
 	def solve(sender)
 		@liveMode = !@liveMode
 
@@ -61,11 +69,14 @@ class FillzoneSolverDelegate
 			@tableSource.fillWithColorSteps(solution, board: board)
 			@solutionTable.reloadData
 			@solutionTable.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection: false)
+			
+			statusLabel.stringValue = "Solved in #{solution.length} turns."
+		else
+			statusLabel.stringValue = "Drag window over puzzle."
 		end
 
 		solveButton.title = @liveMode ? 'Solve' : 'New'
 		overlayView.liveMode = @liveMode
-		statusLabel.animator.alphaValue = @liveMode ? 1 : 0
 
 		frame = window.frame
 		frame.size.width = @liveMode ? LIVE_WIDTH : SOLUTION_WIDTH
