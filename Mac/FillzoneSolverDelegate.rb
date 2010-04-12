@@ -69,6 +69,7 @@ class FillzoneSolverDelegate
 			@tableSource.fillWithColorSteps(solution, board: board)
 			@solutionTable.reloadData
 			@solutionTable.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection: false)
+			@solutionTable.scrollRowToVisible(0)
 			
 			statusLabel.stringValue = "Solved in #{solution.length} turns."
 		else
