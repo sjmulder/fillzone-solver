@@ -44,6 +44,7 @@
 
 /* Begin PBXBuildFile section */
 		2BFA9DA710CDF852007972A1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA9DA510CDF852007972A1 /* MainMenu.xib */; };
+		36499EEB117296A6006F34A2 /* SolutionDataSource.rb in Resources */ = {isa = PBXBuildFile; fileRef = 36499EEA117296A6006F34A2 /* SolutionDataSource.rb */; };
 		36DFA59F11725B8E00D8340F /* board.rb in Resources */ = {isa = PBXBuildFile; fileRef = 36DFA59C11725B8E00D8340F /* board.rb */; };
 		36DFA5A011725B8E00D8340F /* solver_breadth.rb in Resources */ = {isa = PBXBuildFile; fileRef = 36DFA59D11725B8E00D8340F /* solver_breadth.rb */; };
 		36DFA5A111725B8E00D8340F /* solver_reach.rb in Resources */ = {isa = PBXBuildFile; fileRef = 36DFA59E11725B8E00D8340F /* solver_reach.rb */; };
@@ -76,6 +77,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2BFA9DA610CDF852007972A1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		36499EEA117296A6006F34A2 /* SolutionDataSource.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SolutionDataSource.rb; sourceTree = "<group>"; };
 		36DFA59C11725B8E00D8340F /* board.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = board.rb; path = ../board.rb; sourceTree = SOURCE_ROOT; };
 		36DFA59D11725B8E00D8340F /* solver_breadth.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = solver_breadth.rb; path = ../solver_breadth.rb; sourceTree = SOURCE_ROOT; };
 		36DFA59E11725B8E00D8340F /* solver_reach.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = solver_reach.rb; path = ../solver_reach.rb; sourceTree = SOURCE_ROOT; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				36DFA5AA11725CB100D8340F /* SolverTargetView.rb */,
+				36499EEA117296A6006F34A2 /* SolutionDataSource.rb */,
 				36DFA5D61172747E00D8340F /* FillzoneSolverDelegate.rb */,
 			);
 			name = Classes;
@@ -242,6 +245,7 @@
 				36DFA5A111725B8E00D8340F /* solver_reach.rb in Resources */,
 				36DFA5AB11725CB100D8340F /* SolverTargetView.rb in Resources */,
 				36DFA5D71172747E00D8340F /* FillzoneSolverDelegate.rb in Resources */,
+				36499EEB117296A6006F34A2 /* SolutionDataSource.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,7 +51,9 @@ class SolverTargetView < NSView
 		context.saveGraphicsState
 		context.setCompositingOperation(NSCompositeCopy)
 	
-		NSColor.colorWithDeviceWhite(0, alpha: 0.25).set
+		white = @liveMode ? 0 : 0.25
+		alpha = @liveMode ? 0.25 : 0.5
+		NSColor.colorWithDeviceWhite(white, alpha: alpha).set
 		
 		path = NSBezierPath.bezierPathWithRoundedRect(bounds, xRadius: 12, yRadius: 12)
 		path.fill

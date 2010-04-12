@@ -9,6 +9,8 @@
 # work for any purpose, without any conditions, unless such conditions are
 # required by law.
 
+require 'solver_reach'
+
 class FillzoneSolverDelegate
 	LIVE_WIDTH = 354
 	SOLUTION_WIDTH = 533
@@ -18,9 +20,11 @@ class FillzoneSolverDelegate
 	attr_accessor :statusLabel
 	attr_accessor :solveButton
 	attr_accessor :solutionScroller
+	attr_accessor :solutionTable
 	
 	def initialize
 		@liveMode = true
+		@tableSource = SolutionDataSource.new
 	end
 	
 	def awakeFromNib
@@ -29,6 +33,9 @@ class FillzoneSolverDelegate
 		window.setOpaque(false)
 		window.setLevel(NSFloatingWindowLevel)
 		statusLabel.cell.setBackgroundStyle(NSBackgroundStyleRaised)
+		
+		solutionTable.delegate = self
+		solutionTable.dataSource = @tableSource
 	end
 	
 	def applicationDidFinishLaunching(notification)
@@ -39,8 +46,22 @@ class FillzoneSolverDelegate
 		overlayView.captureBoard if @liveMode
 	end
 	
+	def tableViewSelectionDidChange(notification)
+		overlayView.board = @tableSource.boardAtRow(solutionTable.selectedRow)
+	end
+	
 	def solve(sender)
 		@liveMode = !@liveMode
+
+		unless @liveMode
+			board = overlayView.board
+			solver = ReachFillzoneSolver.new(board)
+			solution = solver.solve
+			
+			@tableSource.fillWithColorSteps(solution, board: board)
+			@solutionTable.reloadData
+			@solutionTable.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection: false)
+		end
 
 		solveButton.title = @liveMode ? 'Solve' : 'New'
 		overlayView.liveMode = @liveMode
