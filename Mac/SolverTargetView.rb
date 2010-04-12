@@ -29,7 +29,7 @@ class SolverTargetView < NSView
 	BOARD_RIGHT = START_X + BOARD_WIDTH
 	
 	COLORS = [
-		[:purple, NSColor.magentaColor],
+		[:pink, NSColor.magentaColor],
 		[:white, NSColor.colorWithCalibratedRed(1, green: 1, blue: 1, alpha: 1)],
 		[:red, NSColor.redColor],
 		[:green, NSColor.greenColor],
