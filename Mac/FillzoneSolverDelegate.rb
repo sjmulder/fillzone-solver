@@ -42,6 +42,14 @@ class FillzoneSolverDelegate
 		overlayView.captureBoard if @liveMode
 	end
 
+	def applicationShouldTerminateAfterLastWindowClosed(app)
+		false
+	end
+	
+	def applicationShouldOpenUntitledFile(app)
+		window.makeKeyAndOrderFront(self)
+	end
+
 	def windowDidMove(notification)
 		overlayView.captureBoard if @liveMode
 	end
