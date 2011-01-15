@@ -2,22 +2,25 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10D573</string>
-		<string key="IBDocument.InterfaceBuilderVersion">783</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">460.00</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.InterfaceBuilderVersion">804</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">783</string>
+			<string key="NS.object.0">804</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="376"/>
-			<integer value="81"/>
+			<integer value="372"/>
+			<integer value="24"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
-		<dictionary class="NSMutableDictionary" key="IBDocument.Metadata"/>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
+		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1048">
 			<object class="NSCustomObject" id="1021">
 				<string key="NSClassName">NSApplication</string>
@@ -797,6 +800,7 @@
 											</array>
 											<string key="NSFrame">{{1, 17}, {178, 337}}</string>
 											<reference key="NSSuperview" ref="1008708178"/>
+											<reference key="NSNextKeyView" ref="420612685"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<reference key="NSDocView" ref="420612685"/>
 											<reference key="NSBGColor" ref="70534091"/>
@@ -831,6 +835,7 @@
 											</array>
 											<string key="NSFrame">{{1, 0}, {178, 17}}</string>
 											<reference key="NSSuperview" ref="1008708178"/>
+											<reference key="NSNextKeyView" ref="701783080"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<reference key="NSDocView" ref="701783080"/>
 											<reference key="NSBGColor" ref="70534091"/>
@@ -840,6 +845,7 @@
 									</array>
 									<string key="NSFrame">{{0, -1}, {180, 355}}</string>
 									<reference key="NSSuperview" ref="79672609"/>
+									<reference key="NSNextKeyView" ref="187826915"/>
 									<bool key="NSViewIsLayerTreeHost">YES</bool>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<int key="NSsFlags">562</int>
@@ -874,6 +880,15 @@
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+						</object>
+						<object class="NSProgressIndicator" id="337269084">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">1316</int>
+							<object class="NSPSMatrix" key="NSDrawMatrix"/>
+							<string key="NSFrame">{{12, 4}, {16, 16}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<int key="NSpiFlags">28938</int>
+							<double key="NSMaxValue">100</double>
 						</object>
 					</array>
 					<string key="NSFrameSize">{354, 377}</string>
@@ -1122,59 +1137,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">window</string>
+						<string key="label">progressIndicator</string>
 						<reference key="source" ref="82548035"/>
-						<reference key="destination" ref="972006081"/>
+						<reference key="destination" ref="337269084"/>
 					</object>
-					<int key="connectionID">389</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="82548035"/>
-					</object>
-					<int key="connectionID">390</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="972006081"/>
-						<reference key="destination" ref="82548035"/>
-					</object>
-					<int key="connectionID">405</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">overlayView</string>
-						<reference key="source" ref="82548035"/>
-						<reference key="destination" ref="540590043"/>
-					</object>
-					<int key="connectionID">406</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">solve:</string>
-						<reference key="source" ref="82548035"/>
-						<reference key="destination" ref="611391970"/>
-					</object>
-					<int key="connectionID">414</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">solveButton</string>
-						<reference key="source" ref="82548035"/>
-						<reference key="destination" ref="611391970"/>
-					</object>
-					<int key="connectionID">417</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">statusLabel</string>
-						<reference key="source" ref="82548035"/>
-						<reference key="destination" ref="989945535"/>
-					</object>
-					<int key="connectionID">418</int>
+					<int key="connectionID">427</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1182,7 +1149,7 @@
 						<reference key="source" ref="82548035"/>
 						<reference key="destination" ref="1008708178"/>
 					</object>
-					<int key="connectionID">419</int>
+					<int key="connectionID">428</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1190,7 +1157,47 @@
 						<reference key="source" ref="82548035"/>
 						<reference key="destination" ref="420612685"/>
 					</object>
-					<int key="connectionID">420</int>
+					<int key="connectionID">429</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">statusLabel</string>
+						<reference key="source" ref="82548035"/>
+						<reference key="destination" ref="989945535"/>
+					</object>
+					<int key="connectionID">430</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">solveButton</string>
+						<reference key="source" ref="82548035"/>
+						<reference key="destination" ref="611391970"/>
+					</object>
+					<int key="connectionID">431</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">overlayView</string>
+						<reference key="source" ref="82548035"/>
+						<reference key="destination" ref="540590043"/>
+					</object>
+					<int key="connectionID">432</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">window</string>
+						<reference key="source" ref="82548035"/>
+						<reference key="destination" ref="972006081"/>
+					</object>
+					<int key="connectionID">433</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">solve:</string>
+						<reference key="source" ref="82548035"/>
+						<reference key="destination" ref="611391970"/>
+					</object>
+					<int key="connectionID">434</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1198,7 +1205,7 @@
 						<reference key="source" ref="82548035"/>
 						<reference key="destination" ref="940792287"/>
 					</object>
-					<int key="connectionID">422</int>
+					<int key="connectionID">435</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1206,7 +1213,23 @@
 						<reference key="source" ref="82548035"/>
 						<reference key="destination" ref="1013530463"/>
 					</object>
-					<int key="connectionID">423</int>
+					<int key="connectionID">436</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="1050"/>
+						<reference key="destination" ref="82548035"/>
+					</object>
+					<int key="connectionID">437</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="82548035"/>
+					</object>
+					<int key="connectionID">438</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1663,6 +1686,7 @@
 							<reference ref="79672609"/>
 							<reference ref="611391970"/>
 							<reference ref="989945535"/>
+							<reference ref="337269084"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -1671,11 +1695,6 @@
 						<reference key="object" ref="540590043"/>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="439893737"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">388</int>
-						<reference key="object" ref="82548035"/>
-						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">393</int>
@@ -1797,6 +1816,16 @@
 						<int key="objectID">421</int>
 						<reference key="object" ref="1013530463"/>
 						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">424</int>
+						<reference key="object" ref="337269084"/>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">426</int>
+						<reference key="object" ref="82548035"/>
+						<reference key="parent" ref="0"/>
 					</object>
 				</array>
 			</object>
@@ -1922,9 +1951,9 @@
 				<integer value="1" key="351.ImportedFromIB2"/>
 				<string key="354.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="354.ImportedFromIB2"/>
-				<string key="371.IBEditorWindowLastContentRect">{{59, 117}, {354, 377}}</string>
+				<string key="371.IBEditorWindowLastContentRect">{{152, 178}, {354, 377}}</string>
 				<string key="371.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="371.IBWindowTemplateEditedContentRect">{{59, 117}, {354, 377}}</string>
+				<string key="371.IBWindowTemplateEditedContentRect">{{152, 178}, {354, 377}}</string>
 				<integer value="1" key="371.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="371.editorWindowContentRectSynchronizationRect">{{33, 99}, {480, 360}}</string>
 				<string key="372.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1947,6 +1976,11 @@
 				<string key="411.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="412.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="421.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="424.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="424.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABBQAAAwZAAAA</bytes>
+				</object>
+				<string key="426.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="5.ImportedFromIB2"/>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1972,7 +2006,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">423</int>
+			<int key="maxID">438</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1992,6 +2026,7 @@
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="overlayView">id</string>
+						<string key="progressIndicator">id</string>
 						<string key="solutionScroller">id</string>
 						<string key="solutionTable">id</string>
 						<string key="solveButton">id</string>
@@ -2001,6 +2036,10 @@
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="overlayView">
 							<string key="name">overlayView</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="progressIndicator">
+							<string key="name">progressIndicator</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="solutionScroller">
@@ -2412,6 +2451,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Foundation.framework/Headers/NSURLDownload.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSProgressIndicator</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSProgressIndicator.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

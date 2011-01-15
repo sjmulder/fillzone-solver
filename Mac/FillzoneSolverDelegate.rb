@@ -19,6 +19,7 @@ class FillzoneSolverDelegate
 	attr_accessor :overlayView
 	attr_accessor :statusLabel
 	attr_accessor :solveButton
+	attr_accessor :progressIndicator
 	attr_accessor :solutionScroller
 	attr_accessor :solutionTable
 	
@@ -66,29 +67,50 @@ class FillzoneSolverDelegate
 		end
 	end
 	
+	def solveThread(context)
+		solver = ReachFillzoneSolver.new(context[:board])
+		solution = solver.solve
+
+		callbackContext = { :board => context[:board], :solution => solution }
+		self.performSelectorOnMainThread('solvedCallback:', withObject: callbackContext, waitUntilDone: true)
+	end
+	
+	def solvedCallback(context)
+		@tableSource.fillWithColorSteps(context[:solution], board: context[:board])
+		@solutionTable.reloadData
+		@solutionTable.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection: false)
+		@solutionTable.scrollRowToVisible(0)
+		
+		statusLabel.stringValue = "Solved in #{context[:solution].length} turns."
+
+		progressIndicator.stopAnimation(self)
+		solveButton.title = 'New'
+		solveButton.enabled = true
+		
+		frame = window.frame
+		frame.size.width = SOLUTION_WIDTH
+		window.animator.setFrame(frame, display: true)
+	end
+	
 	def solve(sender)
 		@liveMode = !@liveMode
 
 		unless @liveMode
-			board = overlayView.board
-			solver = ReachFillzoneSolver.new(board)
-			solution = solver.solve
+			progressIndicator.startAnimation(self)
+			overlayView.liveMode = false
+			solveButton.enabled = false
+			statusLabel.stringValue = 'Solving…'
 			
-			@tableSource.fillWithColorSteps(solution, board: board)
-			@solutionTable.reloadData
-			@solutionTable.selectRowIndexes(NSIndexSet.indexSetWithIndex(0), byExtendingSelection: false)
-			@solutionTable.scrollRowToVisible(0)
-			
-			statusLabel.stringValue = "Solved in #{solution.length} turns."
+			context = { :board => overlayView.board }
+			NSThread.detachNewThreadSelector('solveThread:', toTarget: self, withObject: context)
 		else
-			statusLabel.stringValue = "Drag window over puzzle."
-		end
-
-		solveButton.title = @liveMode ? 'Solve' : 'New'
-		overlayView.liveMode = @liveMode
-
-		frame = window.frame
-		frame.size.width = @liveMode ? LIVE_WIDTH : SOLUTION_WIDTH
-		window.animator.setFrame(frame, display: true)
+			statusLabel.stringValue = 'Drag window over puzzle.'
+			solveButton.title = 'Solve'
+			overlayView.liveMode = true
+			
+			frame = window.frame
+			frame.size.width = LIVE_WIDTH
+			window.animator.setFrame(frame, display: true)
+		end		
 	end
 end
